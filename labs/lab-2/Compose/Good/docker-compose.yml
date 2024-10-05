@@ -1,0 +1,43 @@
+version: '3.9'
+name: 'php_rest'
+services:
+  php-env:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 8081:80
+    depends_on:
+      - mysql_db
+    networks:
+      - service
+  mysql_db:
+    image: mysql:5.7.32
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE:  notes_db_vk
+      MYSQL_PASSWORD: null
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_ROOT_HOST: '%'
+    networks:
+      - service
+      - db
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    restart: always
+    ports:
+      - 9000:80
+    environment:
+      PMA_ARBITRARY: 1
+    depends_on:
+      - mysql_db
+    networks:
+      - db
+
+networks:
+  service:
+  db:
