@@ -119,7 +119,7 @@ services:
     volumes:
       - ./src:/var/www/html
     ports:
-      - 8081:80
+      - 127.0.0.1:8081:80
     depends_on:
       - mysql_db
     networks:
@@ -141,7 +141,7 @@ services:
     image: phpmyadmin:5.2.1
     restart: always
     ports:
-      - 9000:80
+      - 127.0.0.1:9000:80
     environment:
       PMA_ARBITRARY: 1
     depends_on:
