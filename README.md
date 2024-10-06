@@ -4,13 +4,18 @@ ITMO University, Fall 2024
 
 ## Labs
 
-| Lab                 | Status   |
-| -----               | :-:      |
-| [Lab 1](labs/lab-1) | :x:      |
-| [Lab 2](labs/lab-2) | :x:      |
-| [Lab 3](labs/lab-3) | :x:      |
-| [Lab 4](labs/lab-4) | :x:      |
-| [Lab 5](labs/lab-5) | :x:      |
+|         **Lab #**        |  **Lab Type** |          **Status**          |
+|:------------------------:|:-------------:|:----------------------------:|
+|    [Lab 1](labs/lab-1)   |    General    |                  :soon:      |
+|                          |       *       |                   :soon:     |
+|    [Lab 2](labs/lab-2)   |    General    |       :white_check_mark:     |
+|                          |       *       |       :white_check_mark:     |
+|    [Lab 3](labs/lab-3)   |    General    |                  :soon:      |
+|                          |       *       |                    :soon:    |
+|    [Lab 4](labs/lab-4)   |    General    |                 :soon:       |
+|                          |       *       |                  :soon:      |
+|    [Lab 5](labs/lab-5)   |    General    |                 :soon:       |
+|                          |       *       |                  :soon:      |
 
 ## Contributors
 - Фисенко Максим, К34211
