@@ -1,0 +1,13 @@
+apiVersion: v1 # Версия API
+kind: Service # Указываем объект типа Service
+metadata:
+  name: app-service # Имя сервиса
+spec:
+  type: NodePort # Тип сервиса
+  selector:
+    app: app
+  ports:
+    - protocol: TCP # Используем протокол TCP для передачи данных
+      port: 80
+      targetPort: 9999 # Внутренний порт
+      nodePort: 30000 # Внешний порт

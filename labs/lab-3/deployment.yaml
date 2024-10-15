@@ -1,0 +1,20 @@
+apiVersion: apps/v1 # Версия API
+kind: Deployment # Указываем объект типа Deployment
+metadata:
+  name: app-deployment # Имя деплоймента
+spec:
+  replicas: 2 # Количество подов для развертывания
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app-container # Имя контейнера
+        image: app-go # Используемый docker-образ
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 9999 # Открываем порт 9999 в контейнере
