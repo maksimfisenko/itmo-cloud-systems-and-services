@@ -10,7 +10,7 @@ ITMO University, Fall 2024
 |                          |       *       |                   :soon:     |
 |    [Lab 2](labs/lab-2)   |    General    |       :white_check_mark:     |
 |                          |       *       |       :white_check_mark:     |
-|    [Lab 3](labs/lab-3)   |    General    |                  :soon:      |
+|    [Lab 3](labs/lab-3)   |    General    |      :white_check_mark:      |
 |                          |       *       |                    :soon:    |
 |    [Lab 4](labs/lab-4)   |    General    |                 :soon:       |
 |                          |       *       |                  :soon:      |
