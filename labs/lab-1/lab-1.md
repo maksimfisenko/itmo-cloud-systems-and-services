@@ -19,12 +19,46 @@
 В качестве пет-проектов были выбраны два достаточно простых сайта с двумя картинками на фоне. На одном сайте синяя картинка и надпись "Это синий сайт!", на другом красная с аналогичной надписью.<br>
 
 Сначала я просто написал один заголовок и вставил картинку, но мои фронтендерские глаза стали немного кровоточить при виде такой "крутой" страницы, поэтому в итоге их код выглядел следующим образом <br>
-![image](https://github.com/user-attachments/assets/068d0e74-cf27-4020-8609-bc1adf6d8374)
- <br>
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="background-container">
+        <div class="centered-text">Это красный сайт!</div>
+    </div>
+</body>
+</html>
+```
  
 С такими стилями, соответственно <br>
-![image](https://github.com/user-attachments/assets/3cb6bb9b-4af8-4bcd-9ec0-5177d42162f2) <br>
+```
+body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
+.background-container {
+            background: url('redlenin.jpg') no-repeat center top fixed;
+            background-size: cover;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+.centered-text {
+            color: white;
+            font-size: 48px;
+            text-shadow: 6px 6px 16px rgba(0, 0, 0, 7);
+            text-align: center;
+        }
+``` 
 На результат посмотрим в конце <br>
 
 Сейчас перейдём к nginx конфигурации. Она хранится в директории `/etc/nginx/sites-available`. И так как страниц у нас будет две, то и конфигураций тоже сделаем две (здесь показана только для красного сайта, но представьте ещё вторую ) <br>
