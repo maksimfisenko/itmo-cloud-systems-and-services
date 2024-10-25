@@ -13,14 +13,21 @@
 ![image](https://github.com/user-attachments/assets/37113c26-2f17-48c8-adc3-f1e43ae15660) <br>
 Далее на сервере в папке `var/www` были созданы две директории со страницами сайтов: `blue.samsemrod.ru` и `red.samsemrod.ru` соответственно <br>
 В качестве пет-проектов были выбраны два достаточно простых сайта с двумя картинками на фоне. На одном сайте синяя картинка и надпись "Это синий сайт!", на другом красная с аналогичной надписью.<br>
-Сначала я просто написал один заголовок и вставил картинку, но мои фронтендерские глаза стали немного кровоточить при виде такой "крутой" страницы, поэтому в итоге их код выглядел следующим образом
-`        <!DOCTYPE html>
-<html lang="en">
+Сначала я просто написал один заголовок и вставил картинку, но мои фронтендерские глаза стали немного кровоточить при виде такой "крутой" страницы, поэтому в итоге их код выглядел следующим образом <br>
+`<!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body, html {
+</head>
+<body>
+    <div class="background-container">
+        <div class="centered-text">Это красный сайт!</div>
+    </div>
+</body>
+</html>` <br>
+С такими стилями, соответственно <br>
+`        body, html {
             height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;}
@@ -40,14 +47,4 @@
             font-size: 48px;
             text-shadow: 6px 6px 16px rgba(0, 0, 0, 7);
             text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="background-container">
-        <div class="centered-text">Это красный сайт!</div>
-    </div>
-</body>
-</html>`
-
- 
+        }`
