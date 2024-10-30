@@ -20,7 +20,7 @@
 
 Сначала я просто написал один заголовок и вставил картинку, но мои фронтендерские глаза стали немного кровоточить при виде такой "крутой" страницы, поэтому в итоге их код выглядел следующим образом <br>
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +36,7 @@
 ```
  
 С такими стилями, соответственно <br>
-```
+```css
 body, html {
             height: 100%;
             margin: 0;
@@ -63,7 +63,7 @@ body, html {
 
 Сейчас перейдём к nginx конфигурации. Она хранится в директории `/etc/nginx/sites-available`. И так как страниц у нас будет две, то и конфигураций тоже сделаем две (здесь показана только для красного сайта, но представьте ещё вторую ) <br>
 
-```
+```nginx
 server {
     listen 80;
     server_name red.samsemrod.ru;
@@ -95,12 +95,12 @@ server {
 
 `sudo apt install certbot python3-certbot-nginx` <br>
 И создаём сертификаты 
-```
+```bash
 sudo certbot --nginx -d red.samsemrod.ru
 sudo certbot --nginx -d blue.samsemrod.ru
 ```
 Проверить их можно по адресу `/etc/letsencrypt/live/`, ну и по новым строчкам в конфигурациях. По умолчанию они почему-то вставлялись в listen 80, само собой их нужно перенести на listen 443 ssl. Итоговая автоматически сгенерированная настройка шифрования в файле представляет 4 строчки <br>
-```
+```bash
 ssl_certificate /etc/letsencrypt/live/red.samsemrod.ru/fullchain.pem;
 ssl_certificate_key /etc/letsencrypt/live/red.samsemrod.ru/privkey.pem;
 include /etc/letsencrypt/options-ssl-nginx.conf;
@@ -111,7 +111,7 @@ ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
 В итоге код конфигурации после добавления сертификатов и замены порта принял вот такой вид
 
-```
+```nginx
 server {
     listen 80;
     server_name red.samsemrod.ru;
@@ -142,12 +142,12 @@ server {
 
 Для запуска проверки работоспособности нужно добавить ссылку на каждую конфигурацию в `/etc/nginx/sites-enabled/`
 
-```
+```bash
 sudo ln -s /etc/nginx/sites-available/red.samsemrod.ru /etc/nginx/sites-enabled/
 sudo ln -s /etc/nginx/sites-available/blue.samsemrod.ru /etc/nginx/sites-enabled/
 ```
 Проверить правильность конфигурации и, если проблем не найдено, перезагрузить nginx
-```
+```bash
 sudo nginx -t
 sudo systemctl reload nginx
 ```
