@@ -100,7 +100,7 @@ sudo certbot --nginx -d red.samsemrod.ru
 sudo certbot --nginx -d blue.samsemrod.ru
 ```
 Проверить их можно по адресу `/etc/letsencrypt/live/`, ну и по новым строчкам в конфигурациях. По умолчанию они почему-то вставлялись в listen 80, само собой их нужно перенести на listen 443 ssl. Итоговая автоматически сгенерированная настройка шифрования в файле представляет 4 строчки <br>
-```bash
+```
 ssl_certificate /etc/letsencrypt/live/red.samsemrod.ru/fullchain.pem;
 ssl_certificate_key /etc/letsencrypt/live/red.samsemrod.ru/privkey.pem;
 include /etc/letsencrypt/options-ssl-nginx.conf;
