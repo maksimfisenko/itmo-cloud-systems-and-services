@@ -6,7 +6,7 @@ ITMO University, Fall 2024
 
 |         **Lab #**        |  **Lab Type** |          **Status**          |
 |:------------------------:|:-------------:|:----------------------------:|
-|    [Lab 1](labs/lab-1)   |    General    |                  :soon:      |
+|    [Lab 1](labs/lab-1)   |    General    |        :white_check_mark:    |
 |                          |       *       |                   :soon:     |
 |    [Lab 2](labs/lab-2)   |    General    |       :white_check_mark:     |
 |                          |       *       |       :white_check_mark:     |
