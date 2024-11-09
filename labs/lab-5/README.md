@@ -54,6 +54,43 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
+        volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          name: nginx-config
+      - name: nginx-exporter
+        image: nginx/nginx-prometheus-exporter:latest
+        args:
+          - "-nginx.scrape-uri=http://127.0.0.1:80/stub_status"
+        ports:
+        - containerPort: 9113
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    events {}
+    http {
+      server {
+        listen 80;
+        location / {
+          root /usr/share/nginx/html;
+          index index.html index.htm;
+        }
+        location /stub_status {
+          stub_status on;
+          allow 127.0.0.1;
+          deny all;
+        }
+      }
+    }
 
 ---
 apiVersion: v1
@@ -62,17 +99,22 @@ metadata:
   name: nginx-service
   annotations:
     prometheus.io/scrape: 'true'
-    prometheus.io/port: '80'
+    prometheus.io/port: '9113'
 spec:
   selector:
     app: nginx
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 80
     targetPort: 80
+  - name: metrics
+    protocol: TCP
+    port: 9113
+    targetPort: 9113
   type: ClusterIP
 ~~~
-Здесь важно обратить внимения на раздел annotations, где мы разрешаем мониторинг через Prometheus и указываем порт, на котором он будет развёрнут.
+Здесь важно обратить внимения на раздел annotations, где мы разрешаем мониторинг через Prometheus и указываем порт, на котором он будет развёрнут. А также на раздел, где мы импортируем образ nginx/nginx-prometheus-exporter. (На самом деле подобрать правильные настройки для этого файла было сложнее всего и заняло очень много времени).
 Далее, можно развернуть сервер с параметрами из файла одной командой 
 ~~~ps1
 kubectl apply -f nginx-deployment.yaml
