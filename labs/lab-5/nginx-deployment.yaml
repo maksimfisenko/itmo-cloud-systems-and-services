@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+          name: nginx-config
+      - name: nginx-exporter
+        image: nginx/nginx-prometheus-exporter:latest
+        args:
+          - "-nginx.scrape-uri=http://127.0.0.1:80/stub_status"
+        ports:
+        - containerPort: 9113
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    events {}
+    http {
+      server {
+        listen 80;
+        location / {
+          root /usr/share/nginx/html;
+          index index.html index.htm;
+        }
+        location /stub_status {
+          stub_status on;
+          allow 127.0.0.1;
+          deny all;
+        }
+      }
+    }
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '9113'
+spec:
+  selector:
+    app: nginx
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  - name: metrics
+    protocol: TCP
+    port: 9113
+    targetPort: 9113
+  type: ClusterIP
