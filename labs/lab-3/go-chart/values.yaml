@@ -1,0 +1,15 @@
+appName: app
+deployment:
+  name: app-deployment
+  replicas: 2
+container:
+  name: app-container
+  image: app-go-2 # Вот тут обновили значение переменной (тег Docker-образа)
+  imagePullPolicy: Never
+  port: 9999
+service:
+  name: app-service
+  type: NodePort
+  port: 80
+  targetPort: 9999
+  nodePort: 30000
