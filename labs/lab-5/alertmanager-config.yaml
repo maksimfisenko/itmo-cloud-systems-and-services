@@ -1,0 +1,29 @@
+alertmanager:
+  config:
+    route:
+      group_by: [Alertname]
+      receiver: email-me
+
+    receivers:
+    - name: email-me
+      email_configs:
+      - to: gleb.shkoda@gmail.com
+        from: gleb.shkoda@gmail.com
+        smarthost: smtp.gmail.com:587
+        auth_username: "gleb.shkoda@gmail.com"
+        auth_identity: "gleb.shkoda@gmail.com"
+        auth_password: "{На кусре по ИБ сказали, что нельзя заливать свои пароли на гитхаб :( }"
+
+serverFiles:
+  alerting_rules.yml:
+    groups:
+      - name: nginx-alert
+        rules:
+          - alert: NginxDownAlert
+            expr: absent(up{job="kubernetes-service-endpoints", service="nginx-service"} == 1)
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Тревога!"
+              description: "NGINX сервер не отвечает дольше 1 минуты!"
